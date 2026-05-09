@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.specific.sudo import sudo_support from thefuck.utils import replace_command, for_app  no_command = "Error: No such command" no_website = "hostscli.errors.WebsiteImportError"   @sudo_support @for_app('hostscli') def match(command):     errors = [no_command, no_website]     for 

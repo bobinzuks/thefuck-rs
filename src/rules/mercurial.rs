@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import get_closest, for_app   def extract_possibilities(command):     possib = re.findall(r'\n\(did you mean one of ([^\?]+)\?\)', command.output)     if possib:         return possib[0].split(', ')     possib = re.findall(r'\n    ([^$]+)$', command.output)     if possib

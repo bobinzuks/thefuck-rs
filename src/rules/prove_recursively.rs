@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import os from thefuck.utils import for_app   def _is_recursive(part):     if part == '--recurse':         return True     elif not part.startswith('--') and part.startswith('-') and 'r' in part:         return True   def _isdir(part):     return not part.startswith('-') and os.path.isdir(part)   @f

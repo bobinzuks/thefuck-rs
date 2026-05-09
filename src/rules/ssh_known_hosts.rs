@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import for_app  commands = ('ssh', 'scp')   @for_app(*commands) def match(command):     if not command.script:         return False     if not command.script.startswith(commands):         return False      patterns = (         r'WARNING: REMOTE HOST IDENTIFICATION HAS CH

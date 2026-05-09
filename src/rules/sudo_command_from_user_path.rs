@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import for_app, which, replace_argument   def _get_command_name(command):     found = re.findall(r'sudo: (.*): command not found', command.output)     if found:         return found[0]   @for_app('sudo') def match(command):     if 'command not found' in command.output:  

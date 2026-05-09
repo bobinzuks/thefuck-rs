@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re import subprocess from thefuck.utils import replace_command, for_app, cache   @for_app('gulp') def match(command):     return 'is not in your gulpfile' in command.output   @cache('gulpfile.js') def get_gulp_tasks():     proc = subprocess.Popen(['gulp', '--tasks-simple'],                   

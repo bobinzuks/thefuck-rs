@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import replace_argument, for_app from thefuck.specific.sudo import sudo_support   @sudo_support @for_app('pip', 'pip2', 'pip3') def match(command):     return ('pip' in command.script and             'unknown command' in command.output and             'maybe you meant' i

@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// # -*- encoding: utf-8 -*- from six.moves.urllib.parse import urlparse from thefuck.utils import for_app   @for_app('whois', at_least=1) def match(command):     """     What the `whois` command returns depends on the 'Whois server' it contacted     and is not consistent through different servers. But

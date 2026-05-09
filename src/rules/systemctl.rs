@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// """ The confusion in systemctl's param order is massive. """ from thefuck.specific.sudo import sudo_support from thefuck.utils import for_app   @sudo_support @for_app('systemctl') def match(command):     # Catches "Unknown operation 'service'." when executing systemctl with     # misordered argument

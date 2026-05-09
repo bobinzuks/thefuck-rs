@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// # Opens URL's in the default web browser # # Example: # > open github.com # The file ~/github.com does not exist. # Perhaps you meant 'http://github.com'? # from thefuck.shells import shell from thefuck.utils import eager, for_app   def is_arg_url(command):     return ('.com' in command.script or   

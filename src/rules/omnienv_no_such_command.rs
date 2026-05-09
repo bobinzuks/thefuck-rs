@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import (cache, for_app, replace_argument, replace_command,                            which) from subprocess import PIPE, Popen   supported_apps = 'goenv', 'nodenv', 'pyenv', 'rbenv' enabled_by_default = any(which(a) for a in supported_apps)   COMMON_TYPOS = {     'list'

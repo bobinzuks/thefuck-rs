@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import for_app, get_close_matches, replace_command import re   def _get_failed_lifecycle(command):     return re.search(r'\[ERROR\] Unknown lifecycle phase "(.+)"',                      command.output)   def _getavailable_lifecycles(command):     return re.search(         r'Availa

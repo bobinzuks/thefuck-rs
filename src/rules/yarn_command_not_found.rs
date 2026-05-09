@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from subprocess import Popen, PIPE from thefuck.utils import (for_app, eager, replace_command, replace_argument,                            cache, which)  regex = re.compile(r'error Command "(.*)" not found.')   @for_app('yarn') def match(command):     return regex.findall(command.output) 

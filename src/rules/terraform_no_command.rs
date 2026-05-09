@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import get_all_executables, get_close_matches, \     get_valid_history_without_current, get_closest, which from thefuck.specific.sudo import sudo_support   @sudo_support def match(command):     return (not which(command.script_parts[0])             and ('not found' in command.outp

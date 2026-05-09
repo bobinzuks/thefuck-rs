@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import subprocess from thefuck.utils import for_app, replace_command, eager   @for_app('ifconfig') def match(command):     return 'error fetching interface information: Device not found' \            in command.output   @eager def _get_possible_interfaces():     proc = subprocess.Popen(['ifconfig', 

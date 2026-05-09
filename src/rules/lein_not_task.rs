@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import replace_command, get_all_matched_commands, for_app from thefuck.specific.sudo import sudo_support   @sudo_support @for_app('lein') def match(command):     return (command.script.startswith('lein')             and "is not a task. See 'lein help'" in command.output 

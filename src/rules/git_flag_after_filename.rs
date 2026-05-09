@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.specific.git import git_support  error_pattern = "fatal: bad flag '(.*?)' used after filename" error_pattern2 = "fatal: option '(.*?)' must come before non-option arguments"   @git_support def match(command):     return re.search(error_pattern, command.output) or re.search(err

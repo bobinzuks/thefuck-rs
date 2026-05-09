@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import for_app, replace_command, eager, memoize from thefuck.system import Path   @memoize @eager def _get_all_environments():     root = Path('~/.virtualenvs').expanduser()     if not root.is_dir():         return      for child in root.iterdir():         if child.is_dir():      

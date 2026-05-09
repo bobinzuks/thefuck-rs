@@ -1,8 +1,41 @@
 {
-  "id": "swarm-1778347450822-eo8fms",
-  "topology": "hierarchical",
-  "maxAgents": 15,
+  "swarmId": "swarm-moytwrxa",
+  "objective": "# thefuck-rs Full Conversion via Ruvflow\n\n## Mission\nConvert all Python thefuck rules to Rust using the tile-first router system.\n\n## System\n- Tile router: hooks/tile-first-router.mjs\n- Tiles: 44,896 entries + 53 rust-conversion tiles\n- Routing: Tiles → MegaBlox → GitHub → DeepSeek\n- Teach-back: Every DeepSeek response writes to learned.jsonl\n\n## Agent Pipeline\n\nAGENT 1 — CONVERTER\nFor each .py file in source-python/thefuck/rules/:\n  1. Query: node tile-first-router.mjs \"{rule_name} rule convert to rust\"\n  2. Extract answer from JSON response\n  3. Write to src/rules/{rule_name}.rs\n  4. Log: source (tile-code/github/deepseek) + tokens used\n  SendMessage findings to AGENT 2\n\nAGENT 2 — VALIDATOR  \nFor each .rs file written:\n  1. Check it compiles: cargo check 2>&1\n  2. Fix obvious errors (missing imports, wrong types)\n  3. Add to src/rules/mod.rs registry\n  SendMessage results to AGENT 3\n\nAGENT 3 — MOD BUILDER\nBuild complete src/rules/mod.rs:\n  1. mod declarations for all rules\n  2. get_rules() returning all rules\n  3. cargo build --release\n  SendMessage to AGENT 4\n\nAGENT 4 — BENCHMARKER\n  1. Run hyperfine vs python thefuck\n  2. Write results to README.md\n  3. git commit + push\n  SendMessage to AGENT 5\n\nAGENT 5 — TILE TRAINER\nFor every DeepSeek response used:\n  1. Write tile back to learned.jsonl\n  2. Verify tile queryable\n  3. Report final tile count\n\n## Constraints\n- ALWAYS use tile router first — never call DeepSeek directly\n- GNN vectors on every file\n- Checkpoint every 10 rules\n- Non-stop execution",
   "strategy": "development",
-  "initializedAt": "2026-05-09T17:24:10.822Z",
-  "status": "ready"
+  "status": "initialized",
+  "agents": 8,
+  "agentPlan": [
+    {
+      "role": "Coordinator",
+      "type": "coordinator",
+      "count": 1,
+      "purpose": "Orchestrate workflow"
+    },
+    {
+      "role": "Architect",
+      "type": "architect",
+      "count": 1,
+      "purpose": "System design"
+    },
+    {
+      "role": "Coder",
+      "type": "coder",
+      "count": 3,
+      "purpose": "Implementation"
+    },
+    {
+      "role": "Tester",
+      "type": "tester",
+      "count": 2,
+      "purpose": "Quality assurance"
+    },
+    {
+      "role": "Reviewer",
+      "type": "reviewer",
+      "count": 1,
+      "purpose": "Code review"
+    }
+  ],
+  "startedAt": "2026-05-09T21:01:14.211Z",
+  "parallel": true
 }

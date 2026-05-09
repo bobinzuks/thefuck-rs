@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.specific.git import git_support   @git_support def match(command):     return (' rm ' in command.script             and "fatal: not removing '" in command.output             and "' recursively without -r" in command.output)   @git_support def get_new_command(command):     command_parts 

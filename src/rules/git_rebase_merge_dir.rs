@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import get_close_matches from thefuck.specific.git import git_support   @git_support def match(command):     return (' rebase' in command.script and             'It seems that there is already a rebase-merge directory' in command.output and             'I wonder if you are in the 

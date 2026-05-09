@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// ''' Rule: git_clone_missing  Correct missing `git clone` command when pasting a git URL  ```sh >>> https://github.com/nvbn/thefuck.git git clone https://github.com/nvbn/thefuck.git ```  Author: Miguel Guthridge ''' from six.moves.urllib import parse from thefuck.utils import which   def match(comman

@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.shells import shell   patterns = (     r"mv: cannot move '[^']*' to '([^']*)': No such file or directory",     r"mv: cannot move '[^']*' to '([^']*)': Not a directory",     r"cp: cannot create regular file '([^']*)': No such file or directory",     r"cp: cannot create regular 

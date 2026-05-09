@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from subprocess import Popen, PIPE from thefuck.utils import for_app, replace_command, cache, eager   @for_app('react-native') def match(command):     return re.findall(r"Unrecognized command '.*'", command.output)   @cache('package.json') @eager def _get_commands():     proc = Popen(['rea

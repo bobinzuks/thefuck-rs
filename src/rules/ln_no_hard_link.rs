@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// # -*- coding: utf-8 -*- """Suggest creating symbolic link if hard link is not allowed.  Example: > ln barDir barLink ln: ‘barDir’: hard link not allowed for directory  --> ln -s barDir barLink """  import re from thefuck.specific.sudo import sudo_support   @sudo_support def match(command):     retur

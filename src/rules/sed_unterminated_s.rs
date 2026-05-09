@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import shlex from thefuck.shells import shell from thefuck.utils import for_app   @for_app('sed') def match(command):     return "unterminated `s' command" in command.output   def get_new_command(command):     script = shlex.split(command.script)      for (i, e) in enumerate(script):         if e.st

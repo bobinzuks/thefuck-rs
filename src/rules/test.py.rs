@@ -1,0 +1,1 @@
+use super::{Command, Rule}; pub struct GitPush; impl Rule for GitPush { fn name(&self) -> &str { "git_push" } fn matches(&self, cmd: &Command) -> bool { cmd.text.starts_with("git push") && cmd.output.contains("set-upstream") } fn fix(&self, cmd: &Command) -> String { format!("git push --set-upstream origin {}", "main") } }

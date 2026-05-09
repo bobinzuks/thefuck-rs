@@ -22,10 +22,4 @@ impl Rule for GitPush {
             .and_then(|line| {
                 let start = line.find("'")? + 1;
                 let end = line[start..].find("'")?;
-                Some(&line[start..start + end])
-            })
-            .unwrap_or("master");
-
-        format!("git push --set-upstream origin {}", branch)
-    }
-}
+       

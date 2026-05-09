@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import replace_command, for_app   @for_app('tmux') def match(command):     return ('ambiguous command:' in command.output             and 'could be:' in command.output)   def get_new_command(command):     cmd = re.match(r"ambiguous command: (.*), could be: (.*)",        

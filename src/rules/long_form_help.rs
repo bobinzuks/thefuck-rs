@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import replace_argument import re  # regex to match a suggested help command from the tool output help_regex = r"(?:Run|Try) '([^']+)'(?: or '[^']+')? for (?:details|more information)."   def match(command):     if re.search(help_regex, command.output, re.I) is not None:         r

@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import os from thefuck.utils import for_app   def _get_actual_file(parts):     for part in parts[1:]:         if os.path.isfile(part) or os.path.isdir(part):             return part   @for_app('grep', 'egrep') def match(command):     return ': No such file or directory' in command.output \         a

@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from itertools import dropwhile, islice, takewhile import subprocess  from thefuck.utils import get_closest, replace_argument, for_app, which, cache   def get_golang_commands():     proc = subprocess.Popen('go', stderr=subprocess.PIPE)     lines = [line.decode('utf-8').strip() for line in proc.stder

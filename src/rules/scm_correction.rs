@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// from thefuck.utils import for_app, memoize from thefuck.system import Path  path_to_scm = {     '.git': 'git',     '.hg': 'hg', }  wrong_scm_patterns = {     'git': 'fatal: Not a git repository',     'hg': 'abort: no repository found', }   @memoize def _get_actual_scm():     for path, scm in path_to

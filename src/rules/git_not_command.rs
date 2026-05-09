@@ -1,0 +1,2 @@
+// TODO: Convert from Python
+// import re from thefuck.utils import get_all_matched_commands, replace_command from thefuck.specific.git import git_support   @git_support def match(command):     return (" is not a git command. See 'git --help'." in command.output             and ('The most similar command' in command.output        
