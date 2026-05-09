@@ -1,0 +1,41 @@
+{
+  "swarms": {
+    "swarm-1778347450822-eo8fms": {
+      "swarmId": "swarm-1778347450822-eo8fms",
+      "topology": "hierarchical",
+      "maxAgents": 15,
+      "status": "running",
+      "agents": [],
+      "tasks": [],
+      "config": {
+        "topology": "hierarchical",
+        "maxAgents": 15,
+        "strategy": "specialized",
+        "communicationProtocol": "message-bus",
+        "autoScaling": true,
+        "consensusMechanism": "majority"
+      },
+      "createdAt": "2026-05-09T17:24:10.822Z",
+      "updatedAt": "2026-05-09T17:24:10.822Z"
+    },
+    "swarm-1778347518444-sad1e7": {
+      "swarmId": "swarm-1778347518444-sad1e7",
+      "topology": "hierarchical-mesh",
+      "maxAgents": 6,
+      "status": "running",
+      "agents": [],
+      "tasks": [],
+      "config": {
+        "topology": "hierarchical-mesh",
+        "maxAgents": 6,
+        "strategy": "specialized",
+        "communicationProtocol": "message-bus",
+        "autoScaling": true,
+        "consensusMechanism": "majority"
+      },
+      "createdAt": "2026-05-09T17:25:18.444Z",
+      "updatedAt": "2026-05-09T17:25:18.444Z"
+    }
+  },
+  "version": "3.0.0"
+}
