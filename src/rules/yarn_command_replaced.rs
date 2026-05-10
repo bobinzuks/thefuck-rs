@@ -1,2 +1,24 @@
-// TODO: Convert from Python
-// import re from thefuck.utils import for_app  regex = re.compile(r'Run "(.*)" instead')   @for_app('yarn', at_least=1) def match(command):     return regex.findall(command.output)   def get_new_command(command):     return regex.findall(command.output)[0] 
+use regex::Regex;
+use super::{Command, Rule};
+
+pub struct YarnCommandReplaced;
+
+impl Rule for YarnCommandReplaced {
+    fn name(&self) -> &'static str {
+        "yarn_command_replaced"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        let re = Regex::new(r#"Run "(.*)" instead"#).unwrap();
+        re.is_match(&command.output)
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        let re = Regex::new(r#"Run "(.*)" instead"#).unwrap();
+        if let Some(caps) = re.captures(&command.output) {
+            caps.get(1).map_or_else(|| String::new(), |m| m.as_str().to_string())
+        } else {
+            String::new()
+        }
+    }
+}

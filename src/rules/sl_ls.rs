@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// """ This happens way too often  When typing really fast cause I'm a 1337 H4X0R, I often fuck up 'ls' and type 'sl'. No more! """   def match(command):     return command.script == 'sl'   def get_new_command(command):     return 'ls' 
+use super::{Command, Rule};
+
+pub struct SlLs;
+
+impl Rule for SlLs {
+    fn name(&self) -> &'static str {
+        "sl_ls"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.trim() == "sl"
+    }
+
+    fn fix(&self, _cmd: &Command) -> String {
+        "ls".to_string()
+    }
+}

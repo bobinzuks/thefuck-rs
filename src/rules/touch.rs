@@ -1,2 +1,24 @@
-// TODO: Convert from Python
-// import re from thefuck.shells import shell from thefuck.utils import for_app   @for_app('touch') def match(command):     return 'No such file or directory' in command.output   def get_new_command(command):     path = re.findall(         r"touch: (?:cannot touch ')?(.+)/.+'?:", command.output)[0]    
+use super::{Command, Rule};
+use regex::Regex;
+
+pub struct Touch;
+
+impl Rule for Touch {
+    fn name(&self) -> &'static str {
+        "touch"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.output.contains("No such file or directory")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        let re = Regex::new(r"touch: (?:cannot touch ')?(.+)/.+'?:").unwrap();
+        let path = re.captures(&command.output)
+            .and_then(|cap| cap.get(1))
+            .map(|m| m.as_str())
+            .unwrap_or("");
+        
+        format!("mkdir -p {} && {}", path, command.script)
+    }
+}

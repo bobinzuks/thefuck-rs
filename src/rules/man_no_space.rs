@@ -1,2 +1,18 @@
-// TODO: Convert from Python
-// def match(command):     return (command.script.startswith(u'man')             and u'command not found' in command.output.lower())   def get_new_command(command):     return u'man {}'.format(command.script[3:])   priority = 2000 
+use super::{Command, Rule};
+
+pub struct ManNoSpace;
+
+impl Rule for ManNoSpace {
+    fn name(&self) -> &'static str {
+        "man_no_space"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.script.starts_with("man")
+            && cmd.output.to_lowercase().contains("command not found")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        format!("man {}", &cmd.script[3..])
+    }
+}

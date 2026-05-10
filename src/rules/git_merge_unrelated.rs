@@ -1,2 +1,18 @@
-// TODO: Convert from Python
-// import re from thefuck.utils import replace_argument from thefuck.specific.git import git_support   @git_support def match(command):     return ('merge' in command.script             and ' - not something we can merge' in command.output             and 'Did you mean this?' in command.output)   @git_
+use super::{Command, Rule};
+
+pub struct GitMergeUnrelated;
+
+impl Rule for GitMergeUnrelated {
+    fn name() -> &'static str {
+        "git_merge_unrelated"
+    }
+
+    fn matches(cmd: &Command) -> bool {
+        cmd.script.contains("merge")
+            && cmd.output.contains("fatal: refusing to merge unrelated histories")
+    }
+
+    fn fix(cmd: &Command) -> String {
+        format!("{} --allow-unrelated-histories", cmd.script)
+    }
+}

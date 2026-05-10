@@ -1,2 +1,24 @@
-// TODO: Convert from Python
-// from thefuck.utils import replace_argument, for_app   @for_app('php', at_least=2) def match(command):     return ('-s' in command.script_parts             and command.script_parts[-1] != '-s')   def get_new_command(command):     return replace_argument(command.script, "-s", "-S") 
+use super::{Command, Rule};
+
+pub struct PhpS;
+
+impl Rule for PhpS {
+    fn name(&self) -> &'static str {
+        "php_s"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.text.contains("php ")
+            && command.text.split_whitespace().skip(1).any(|part| part == "-s")
+            && command.text.split_whitespace().last().map_or(false, |last| last != "-s")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        let parts: Vec<&str> = command.text.splitn(3, ' ').collect();
+        if parts.len() >= 3 {
+            format!("{} {} {}", parts[0], "-S", command.text.splitn(3, ' ').skip(2).collect::<Vec<&str>>().join(" "))
+        } else {
+            command.text.replace("-s", "-S")
+        }
+    }
+}

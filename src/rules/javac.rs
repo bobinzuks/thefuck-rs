@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// """Appends .java when compiling java files  Example:  > javac foo  error: Class names, 'foo', are only accepted if annotation  processing is explicitly requested  """ from thefuck.utils import for_app   @for_app('javac') def match(command):     return not command.script.endswith('.java')   def get_n
+use super::{Command, Rule};
+
+pub struct Javac;
+
+impl Rule for Javac {
+    fn name(&self) -> &'static str {
+        "javac"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text == "javac" && !cmd.output.ends_with(".java")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        format!("{}.java", cmd.text)
+    }
+}

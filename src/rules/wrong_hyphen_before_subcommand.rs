@@ -1,2 +1,22 @@
-// TODO: Convert from Python
-// from thefuck.utils import get_all_executables from thefuck.specific.sudo import sudo_support   @sudo_support def match(command):     first_part = command.script_parts[0]     if "-" not in first_part or first_part in get_all_executables():         return False     cmd, _ = first_part.split("-", 1)   
+use super::{Command, Rule};
+
+pub struct WrongHyphenBeforeSubcommand;
+
+impl Rule for WrongHyphenBeforeSubcommand {
+    fn name() -> &'static str {
+        "wrong_hyphen_before_subcommand"
+    }
+
+    fn matches(command: &Command) -> bool {
+        let first_part = command.script_parts[0].as_str();
+        if !first_part.contains('-') || get_all_executables().contains(first_part) {
+            return false;
+        }
+        let cmd = first_part.split('-').next().unwrap();
+        get_all_executables().contains(cmd)
+    }
+
+    fn fix(command: &Command) -> String {
+        command.text.replacen('-', " ", 1)
+    }
+}

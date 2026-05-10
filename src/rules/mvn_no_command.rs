@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// from thefuck.utils import for_app   @for_app('mvn') def match(command):     return 'No goals have been specified for this build' in command.output   def get_new_command(command):     return [command.script + ' clean package',             command.script + ' clean install'] 
+use super::{Command, Rule};
+
+pub struct MvnNoCommand;
+
+impl Rule for MvnNoCommand {
+    fn name(&self) -> &'static str {
+        "mvn_no_command"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.output.contains("No goals have been specified for this build")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        format!("{}\n{}", cmd.script.clone() + " clean package", cmd.script.clone() + " clean install")
+    }
+}

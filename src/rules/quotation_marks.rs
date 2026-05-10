@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// # Fixes careless " and ' usage # # Example: # > git commit -m 'My Message"   def match(command):     return '\'' in command.script and '\"' in command.script   def get_new_command(command):     return command.script.replace('\'', '\"') 
+use super::{Command, Rule};
+
+pub struct QuotationMarks;
+
+impl Rule for QuotationMarks {
+    fn name() -> &'static str {
+        "quotation_marks"
+    }
+
+    fn matches(cmd: &Command) -> bool {
+        cmd.text.contains('\'') && cmd.text.contains('\"')
+    }
+
+    fn fix(cmd: &Command) -> String {
+        cmd.text.replace('\'', "\"")
+    }
+}

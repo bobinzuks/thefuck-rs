@@ -1,2 +1,28 @@
-// TODO: Convert from Python
-// from thefuck.shells import shell from thefuck.specific.git import git_support   @git_support def match(command):     # catches "Please commit or stash them" and "Please, commit your changes or     # stash them before you can switch branches."     return 'or stash them' in command.output   @git_suppo
+use super::{Command, Rule};
+
+pub struct GitStashPop;
+
+impl Rule for GitStashPop {
+    fn name(&self) -> &'static str {
+        "git_stash_pop"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.contains("stash")
+            && cmd.text.contains("pop")
+            && cmd.output.contains("Your local changes to the following files would be overwritten by merge")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        // Equivalent to shell.and_('git add --update', 'git stash pop', 'git reset .')
+        format!("{} && {} && {}",
+            "git add --update",
+            "git stash pop",
+            "git reset ."
+        )
+    }
+
+    fn priority(&self) -> u32 {
+        900
+    }
+}

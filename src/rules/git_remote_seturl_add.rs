@@ -1,2 +1,18 @@
-// TODO: Convert from Python
-// from thefuck.utils import replace_argument from thefuck.specific.git import git_support   @git_support def match(command):     return ('set-url' in command.script             and 'fatal: No such remote' in command.output)   def get_new_command(command):     return replace_argument(command.script, 's
+use super::{Command, Rule};
+
+pub struct GitRemoteSeturlAdd;
+
+impl Rule for GitRemoteSeturlAdd {
+    fn name(&self) -> &'static str {
+        "git_remote_seturl_add"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.text.contains("set-url")
+            && command.output.contains("fatal: No such remote")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        command.text.replace("set-url", "add")
+    }
+}

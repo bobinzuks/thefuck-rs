@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// from thefuck.utils import for_app   @for_app('grep') def match(command):     return 'is a directory' in command.output.lower()   def get_new_command(command):     return u'grep -r {}'.format(command.script[5:]) 
+use super::{Command, Rule};
+
+pub struct GrepRecursive;
+
+impl Rule for GrepRecursive {
+    fn name() -> &'static str {
+        "grep_recursive"
+    }
+
+    fn matches(cmd: &Command) -> bool {
+        cmd.output.to_lowercase().contains("is a directory")
+    }
+
+    fn fix(cmd: &Command) -> String {
+        format!("grep -r {}", &cmd.text[5..])
+    }
+}

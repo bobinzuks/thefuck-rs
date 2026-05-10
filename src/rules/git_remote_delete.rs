@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// import re  from thefuck.specific.git import git_support   @git_support def match(command):     return "remote delete" in command.script   @git_support def get_new_command(command):     return re.sub(r"delete", "remove", command.script, 1) 
+use super::{Command, Rule};
+
+pub struct GitRemoteDelete;
+
+impl Rule for GitRemoteDelete {
+    fn name(&self) -> &'static str {
+        "git_remote_delete"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.contains("remote delete") || cmd.output.contains("remote delete")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        cmd.text.replacen("delete", "remove", 1)
+    }
+}

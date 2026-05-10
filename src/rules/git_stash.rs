@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// from thefuck.shells import shell from thefuck.specific.git import git_support   @git_support def match(command):     # catches "Please commit or stash them" and "Please, commit your changes or     # stash them before you can switch branches."     return 'or stash them' in command.output   @git_suppo
+use super::{Command, Rule};
+
+pub struct GitStash;
+
+impl Rule for GitStash {
+    fn name(&self) -> &'static str {
+        "git_stash"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.output.contains("or stash them")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        format!("git stash && {}", command.text)
+    }
+}

@@ -1,2 +1,23 @@
-// TODO: Convert from Python
-// import re from thefuck.utils import for_app   @for_app('heroku') def match(command):     return 'Run heroku _ to run' in command.output   def get_new_command(command):     return re.findall('Run heroku _ to run ([^.]*)', command.output)[0] 
+use super::{Command, Rule};
+use regex::Regex;
+
+pub struct HerokuNotCommand;
+
+impl Rule for HerokuNotCommand {
+    fn name() -> &'static str {
+        "heroku_not_command"
+    }
+
+    fn matches(command: &Command) -> bool {
+        command.output.contains("Run heroku _ to run")
+    }
+
+    fn fix(command: &Command) -> String {
+        let re = Regex::new(r"Run heroku _ to run ([^.]*)").unwrap();
+        if let Some(caps) = re.captures(&command.output) {
+            caps.get(1).map_or(String::new(), |m| m.as_str().to_string())
+        } else {
+            String::new()
+        }
+    }
+}

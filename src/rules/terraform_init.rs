@@ -1,2 +1,19 @@
-// TODO: Convert from Python
-// from thefuck.shells import shell from thefuck.utils import for_app   @for_app('terraform') def match(command):     return ('this module is not yet installed' in command.output.lower() or             'initialization required' in command.output.lower()             )   def get_new_command(command):    
+use super::{Command, Rule};
+
+pub struct TerraformInit;
+
+impl Rule for TerraformInit {
+    fn name(&self) -> &'static str {
+        "terraform_init"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        let output_lower = command.output.to_lowercase();
+        output_lower.contains("this module is not yet installed")
+            || output_lower.contains("initialization required")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        format!("terraform init && {}", command.text)
+    }
+}

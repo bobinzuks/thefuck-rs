@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// from thefuck.shells import shell from thefuck.specific.git import git_support   @git_support def match(command):     return 'pull' in command.script and 'set-upstream' in command.output   @git_support def get_new_command(command):     line = command.output.split('\n')[-3].strip()     branch = line.s
+pub struct GitPullClone;
+
+impl Rule for GitPullClone {
+    fn name(&self) -> &'static str {
+        "git_pull_clone"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.text.starts_with("git pull")
+            && command.output.contains("fatal: Not a git repository")
+            && command.output.contains("Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).")
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        command.text.replace("pull", "clone")
+    }
+}

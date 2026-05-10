@@ -1,2 +1,21 @@
-// TODO: Convert from Python
-// """Fixes error for commands containing one or more occurrences of the shell prompt symbol '$'.  This usually happens when commands are copied from documentations including them in their code blocks.  Example: > $ git clone https://github.com/nvbn/thefuck.git bash: $: command not found... """  import
+use super::{Command, Rule};
+use regex::Regex;
+
+pub struct RemoveShellPromptLiteral;
+
+impl Rule for RemoveShellPromptLiteral {
+    fn name(&self) -> &'static str {
+        "remove_shell_prompt_literal"
+    }
+
+    fn matches(&self, command: &Command) -> bool {
+        command.output.contains("$: command not found")
+            && Regex::new(r"^[\s]*\$ [\S]+")
+                .ok()
+                .map_or(false, |re| re.is_match(&command.text))
+    }
+
+    fn fix(&self, command: &Command) -> String {
+        command.text.trim_start_matches("$ ").to_string()
+    }
+}

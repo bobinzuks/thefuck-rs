@@ -1,2 +1,24 @@
-// TODO: Convert from Python
-// import re from thefuck.utils import for_app   @for_app('heroku') def match(command):     return 'https://devcenter.heroku.com/articles/multiple-environments' in command.output   def get_new_command(command):     apps = re.findall('([^ ]*) \\([^)]*\\)', command.output)     return [command.script + ' 
+use super::{Command, Rule};
+use regex::Regex;
+
+pub struct HerokuMultipleApps;
+
+impl Rule for HerokuMultipleApps {
+    fn name() -> &'static str {
+        "heroku_multiple_apps"
+    }
+
+    fn matches(cmd: &Command) -> bool {
+        cmd.output.contains("https://devcenter.heroku.com/articles/multiple-environments")
+    }
+
+    fn fix(cmd: &Command) -> String {
+        let re = Regex::new(r"([^ ]*) \([^)]*\)").unwrap();
+        let apps: Vec<&str> = re
+            .captures_iter(&cmd.output)
+            .map(|cap| cap.get(1).unwrap().as_str())
+            .collect();
+        
+        apps.join(" ")
+    }
+}

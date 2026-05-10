@@ -1,2 +1,22 @@
-// TODO: Convert from Python
-// from thefuck.utils import for_app   @for_app('ls') def match(command):     return command.script_parts and 'ls -' not in command.script   def get_new_command(command):     command = command.script_parts[:]     command[0] = 'ls -lah'     return ' '.join(command) 
+use super::{Command, Rule};
+
+pub struct LsLah;
+
+impl Rule for LsLah {
+    fn name(&self) -> &'static str {
+        "ls_lah"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.contains("ls") && !cmd.text.contains("ls -")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        let parts: Vec<&str> = cmd.text.split_whitespace().collect();
+        let mut new_parts = parts.clone();
+        if let Some(pos) = new_parts.iter().position(|&s| s == "ls") {
+            new_parts[pos] = "ls -lah";
+        }
+        new_parts.join(" ")
+    }
+}

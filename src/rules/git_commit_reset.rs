@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// from thefuck.specific.git import git_support   @git_support def match(command):     return ('commit' in command.script_parts)   @git_support def get_new_command(command):     return 'git reset HEAD~' 
+use super::{Command, Rule};
+
+pub struct GitCommitReset;
+
+impl Rule for GitCommitReset {
+    fn name(&self) -> &'static str {
+        "git_commit_reset"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.contains("commit") || cmd.output.contains("commit")
+    }
+
+    fn fix(&self, _cmd: &Command) -> String {
+        "git reset HEAD~".to_string()
+    }
+}

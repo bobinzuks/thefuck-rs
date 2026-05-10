@@ -1,2 +1,26 @@
-// TODO: Convert from Python
-// from thefuck.specific.git import git_support   @git_support def match(command):     return 'help' in command.script and ' is aliased to ' in command.output   @git_support def get_new_command(command):     aliased = command.output.split('`', 2)[2].split("'", 1)[0].split(' ', 1)[0]     return 'git hel
+use super::{Command, Rule};
+
+pub struct GitHelpAliased;
+
+impl Rule for GitHelpAliased {
+    fn name() -> &'static str {
+        "git_help_aliased"
+    }
+
+    fn matches(cmd: &Command) -> bool {
+        cmd.text.contains("help") && cmd.output.contains(" is aliased to ")
+    }
+
+    fn fix(cmd: &Command) -> String {
+        let aliased = cmd.output
+            .split('`')
+            .nth(2)
+            .and_then(|s| s.split('\'')
+                .next())
+            .and_then(|s| s.split(' ')
+                .next())
+            .unwrap_or("");
+        
+        format!("git help {}", aliased)
+    }
+}

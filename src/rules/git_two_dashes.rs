@@ -1,2 +1,18 @@
-// TODO: Convert from Python
-// from thefuck.utils import replace_argument from thefuck.specific.git import git_support   @git_support def match(command):     return ('error: did you mean `' in command.output             and '` (with two dashes ?)' in command.output)   @git_support def get_new_command(command):     to = command.ou
+pub struct GitTwoDashes;
+
+impl Rule for GitTwoDashes {
+    fn name(&self) -> &'static str {
+        "git_two_dashes"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.output.contains("error: did you mean `")
+            && cmd.output.contains("` (with two dashes ?)")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        let to: &str = cmd.output.split('`').nth(1).unwrap_or("");
+        let old = &to[1..];
+        cmd.text.replacen(old, to, 1)
+    }
+}

@@ -1,2 +1,19 @@
-// TODO: Convert from Python
-// from thefuck.shells import shell from thefuck.specific.git import git_support   @git_support def match(command):     return 'pull' in command.script and 'set-upstream' in command.output   @git_support def get_new_command(command):     line = command.output.split('\n')[-3].strip()     branch = line.s
+use super::{Command, Rule};
+
+pub struct GitPullUncommittedChanges;
+
+impl Rule for GitPullUncommittedChanges {
+    fn name(&self) -> &'static str {
+        "git_pull_uncommitted_changes"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.contains("pull")
+            && (cmd.output.contains("You have unstaged changes")
+                || cmd.output.contains("contains uncommitted changes"))
+    }
+
+    fn fix(&self, _cmd: &Command) -> String {
+        format!("git stash && git pull && git stash pop")
+    }
+}

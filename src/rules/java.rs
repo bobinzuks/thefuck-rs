@@ -1,2 +1,17 @@
-// TODO: Convert from Python
-// """Fixes common java command mistake  Example: > java foo.java Error: Could not find or load main class foo.java  """ from thefuck.utils import for_app   @for_app('java') def match(command):     return command.script.endswith('.java')   def get_new_command(command):     return command.script[:-5] 
+use super::{Command, Rule};
+
+pub struct Java;
+
+impl Rule for Java {
+    fn name(&self) -> &'static str {
+        "java"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.ends_with(".java")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        cmd.text[..cmd.text.len() - 5].to_string()
+    }
+}

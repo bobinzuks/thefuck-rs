@@ -1,2 +1,21 @@
-// TODO: Convert from Python
-// from thefuck.specific.git import git_support   @git_support def match(command):     return "'master'" in command.output or "'main'" in command.output   @git_support def get_new_command(command):     if "'master'" in command.output:         return command.script.replace("master", "main")     return c
+use super::{Command, Rule};
+
+pub struct GitMainMaster;
+
+impl Rule for GitMainMaster {
+    fn name(&self) -> &'static str {
+        "git_main_master"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.output.contains("'master'") || cmd.output.contains("'main'")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        if cmd.output.contains("'master'") {
+            cmd.text.replace("master", "main")
+        } else {
+            cmd.text.replace("main", "master")
+        }
+    }
+}

@@ -1,2 +1,15 @@
-// TODO: Convert from Python
-// # Appends .py when executing python files # # Example: # > python foo # error: python: can't open file 'foo': [Errno 2] No such file or directory from thefuck.utils import for_app   @for_app('python') def match(command):     return not command.script.endswith('.py')   def get_new_command(command):  
+pub struct PythonExecute;
+
+impl Rule for PythonExecute {
+    fn name(&self) -> &'static str {
+        "python_execute"
+    }
+
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.text.starts_with("python ") && !cmd.text.trim_end().ends_with(".py")
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        format!("{}.py", cmd.text.trim_end())
+    }
+}
