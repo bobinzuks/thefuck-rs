@@ -12,6 +12,6 @@ impl Rule for MvnNoCommand {
     }
 
     fn fix(&self, cmd: &Command) -> String {
-        format!("{}\n{}", cmd.script.clone() + " clean package", cmd.script.clone() + " clean install")
+        format!("{}\n{}", cmd.text.clone() + " clean package", cmd.text.clone() + " clean install")
     }
 }

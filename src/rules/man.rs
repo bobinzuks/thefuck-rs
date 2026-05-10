@@ -1,46 +1,9 @@
 use super::{Command, Rule};
 
-const ADB_COMMANDS: &[&str] = &[
-    "backup",
-    "bugreport",
-    "connect",
-    "devices",
-    "disable-verity",
-    "disconnect",
-    "enable-verity",
-    "emu",
-    "forward",
-    "get-devpath",
-    "get-serialno",
-    "get-state",
-    "install",
-    "install-multiple",
-    "jdwp",
-    "keygen",
-    "kill-server",
-    "logcat",
-    "pull",
-    "push",
-    "reboot",
-    "reconnect",
-    "restore",
-    "reverse",
-    "root",
-    "run-as",
-    "shell",
-    "sideload",
-    "start-server",
-    "sync",
-    "tcpip",
-    "uninstall",
-    "unroot",
-    "usb",
-    "wait-for",
-];
+pub struct Man;
 
-fn is_app(command: &Command, app: &str) -> bool {
-    command.script_parts.first().map_or(false, |part| part == app)
+impl Rule for Man {
+    fn name(&self) -> &str { "man" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("man") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }
-
-fn get_closest(arg: &str, choices: &[&str]) -> &str {
-    let mut bes

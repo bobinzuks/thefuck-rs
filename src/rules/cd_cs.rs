@@ -1,17 +1,9 @@
 use super::{Command, Rule};
 
-pub struct CsToCd;
+pub struct CdCs;
 
-impl Rule for CsToCd {
-    fn match(&self, command: &Command) -> bool {
-        command.script_parts.first().map_or(false, |s| s == "cs")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec!["cd".to_string() + &command.script[2..]]
-    }
-
-    fn priority(&self) -> u32 {
-        900
-    }
+impl Rule for CdCs {
+    fn name(&self) -> &str { "cd_cs" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("cd") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

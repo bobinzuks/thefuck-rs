@@ -1,14 +1,9 @@
 use super::{Command, Rule};
 
-pub struct FixUselessSpace;
+pub struct FixAltSpace;
 
-impl Rule for FixUselessSpace {
-    fn match(&self, command: &Command) -> bool {
-        command.output.to_lowercase().contains("command not found")
-            && command.script.contains('\u{00a0}')
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec![command.script.replace('\u{00a0}', " ")]
-    }
+impl Rule for FixAltSpace {
+    fn name(&self) -> &str { "fix_alt_space" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("fix") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

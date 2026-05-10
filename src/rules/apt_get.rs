@@ -1,32 +1,17 @@
 use super::{Command, Rule};
-use std::process::Command as StdCommand;
-use std::sync::Mutex;
-use once_cell::sync::Lazy;
 
-static APT_AVAILABLE: Lazy<bool> = Lazy::new(|| {
-    StdCommand::new("apt-get")
-        .arg("--version")
-        .output()
-        .map(|output| output.status.success())
-        .unwrap_or(false)
-});
+pub struct AptGet;
 
-static CNF_AVAILABLE: Lazy<bool> = Lazy::new(|| {
-    StdCommand::new("command-not-found")
-        .arg("--version")
-        .output()
-        .map(|output| output.status.success())
-        .unwrap_or(false)
-});
+impl Rule for AptGet {
+    fn name(&self) -> &str { "apt_get" }
 
-fn get_executable(command: &Command) -> &str {
-    if command.script_parts[0] == "sudo" {
-        &command.script_parts[1]
-    } else {
-        &command.script_parts[0]
+    fn matches(&self, cmd: &Command) -> bool {
+        cmd.output.contains("command not found") &&
+        (cmd.text.starts_with("apt-get") || cmd.text.starts_with("apt"))
+    }
+
+    fn fix(&self, cmd: &Command) -> String {
+        let pkg = cmd.text.split_whitespace().last().unwrap_or("");
+        format!("sudo apt-get install {}", pkg)
     }
 }
-
-fn get_package(executable: &str) -> Option<String> {
-    if !*CNF_AVAILABLE {
-        r

@@ -26,9 +26,9 @@ impl Rule for LongFormHelp {
         let help_regex = Regex::new(r"(?i)(?:Run|Try) '([^']+)'(?: or '[^']+')? for (?:details|more information).").unwrap();
         
         if let Some(captures) = help_regex.captures(&cmd.output) {
-            return captures.get(1).map_or_else(|| cmd.script.clone(), |m| m.as_str().to_string());
+            return captures.get(1).map_or_else(|| cmd.text.clone(), |m| m.as_str().to_string());
         }
 
-        cmd.script.replace("-h", "--help")
+        cmd.text.replace("-h", "--help")
     }
 }

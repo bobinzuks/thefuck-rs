@@ -8,11 +8,11 @@ impl Rule for ManNoSpace {
     }
 
     fn matches(&self, cmd: &Command) -> bool {
-        cmd.script.starts_with("man")
+        cmd.text.starts_with("man")
             && cmd.output.to_lowercase().contains("command not found")
     }
 
     fn fix(&self, cmd: &Command) -> String {
-        format!("man {}", &cmd.script[3..])
+        format!("man {}", &cmd.text[3..])
     }
 }

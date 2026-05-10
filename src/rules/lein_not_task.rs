@@ -9,7 +9,7 @@ impl Rule for LeinNotTask {
     }
 
     fn matches(&self, cmd: &Command) -> bool {
-        cmd.script.starts_with("lein")
+        cmd.text.starts_with("lein")
             && cmd.output.contains("is not a task. See 'lein help'")
             && cmd.output.contains("Did you mean this?")
     }
@@ -32,10 +32,10 @@ impl Rule for LeinNotTask {
             .collect();
 
         if new_cmds.is_empty() {
-            return cmd.script.clone();
+            return cmd.text.clone();
         }
 
         // Replace the broken command with the first suggestion
-        cmd.script.replacen(broken_cmd, new_cmds[0], 1)
+        cmd.text.replacen(broken_cmd, new_cmds[0], 1)
     }
 }

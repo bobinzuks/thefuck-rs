@@ -19,6 +19,6 @@ impl Rule for Touch {
             .map(|m| m.as_str())
             .unwrap_or("");
         
-        format!("mkdir -p {} && {}", path, command.script)
+        format!("mkdir -p {} && {}", path, command.text)
     }
 }

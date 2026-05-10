@@ -1,15 +1,9 @@
 use super::{Command, Rule};
 
-pub struct RuleDeleteGhostMigrations;
+pub struct DjangoSouthGhost;
 
-impl Rule for RuleDeleteGhostMigrations {
-    fn match(&self, command: &Command) -> bool {
-        command.script.contains("manage.py")
-            && command.script.contains("migrate")
-            && command.output.contains("or pass --delete-ghost-migrations")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec![format!("{} --delete-ghost-migrations", command.script)]
-    }
+impl Rule for DjangoSouthGhost {
+    fn name(&self) -> &str { "django_south_ghost" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("django") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

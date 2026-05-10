@@ -32,9 +32,9 @@ impl Rule for NoSuchFile {
             let file = captures.get(1).unwrap().as_str();
             if let Some(pos) = file.rfind('/') {
                 let dir = &file[..pos];
-                return format!("mkdir -p {} && {}", dir, cmd.script);
+                return format!("mkdir -p {} && {}", dir, cmd.text);
             }
         }
-        cmd.script.clone()
+        cmd.text.clone()
     }
 }

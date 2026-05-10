@@ -3,15 +3,7 @@ use super::{Command, Rule};
 pub struct GrepRecursive;
 
 impl Rule for GrepRecursive {
-    fn name() -> &'static str {
-        "grep_recursive"
-    }
-
-    fn matches(cmd: &Command) -> bool {
-        cmd.output.to_lowercase().contains("is a directory")
-    }
-
-    fn fix(cmd: &Command) -> String {
-        format!("grep -r {}", &cmd.text[5..])
-    }
+    fn name(&self) -> &str { "grep_recursive" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("grep") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

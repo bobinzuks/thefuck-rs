@@ -1,13 +1,9 @@
 use super::{Command, Rule};
 
-pub struct CargoBuild;
+pub struct Cargo;
 
-impl Rule for CargoBuild {
-    fn match(&self, command: &Command) -> bool {
-        command.script == "cargo"
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec!["cargo build".to_string()]
-    }
+impl Rule for Cargo {
+    fn name(&self) -> &str { "cargo" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("cargo") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

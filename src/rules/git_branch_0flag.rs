@@ -1,21 +1,9 @@
 use super::{Command, Rule};
-use regex::Regex;
 
-pub struct GitBranch;
+pub struct GitBranch0flag;
 
-impl Rule for GitBranch {
-    fn name(&self) -> &str { "git_branch" }
-
-    fn matches(&self, cmd: &Command) -> bool {
-        cmd.text.starts_with("git") &&
-        cmd.output.contains("most similar command")
-    }
-
-    fn fix(&self, cmd: &Command) -> String {
-        let re = Regex::new(r"most similar command is\s+(\S+)").unwrap();
-        if let Some(cap) = re.captures(&cmd.output) {
-            return format!("git {}", &cap[1]);
-        }
-        cmd.text.clone()
-    }
+impl Rule for GitBranch0flag {
+    fn name(&self) -> &str { "git_branch_0flag" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("git") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

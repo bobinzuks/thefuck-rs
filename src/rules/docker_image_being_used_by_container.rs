@@ -1,28 +1,9 @@
 use super::{Command, Rule};
 
-pub struct DockerRemoveContainerFirst;
+pub struct DockerImageBeingUsedByContainer;
 
-impl Rule for DockerRemoveContainerFirst {
-    fn name(&self) -> &'static str {
-        "docker_remove_container_first"
-    }
-
-    fn description(&self) -> &'static str {
-        "Prepend docker container rm -f to docker image rm when container is using the image"
-    }
-
-    fn is_match(&self, command: &Command) -> bool {
-        command.output.contains("image is being used by running container")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        let container_id = command.output
-            .trim()
-            .split(' ')
-            .last()
-            .unwrap_or("")
-            .to_string();
-        
-        vec![format!(
-            "docker container rm -f {} && {}",
-            container
+impl Rule for DockerImageBeingUsedByContainer {
+    fn name(&self) -> &str { "docker_image_being_used_by_container" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("docker") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
+}

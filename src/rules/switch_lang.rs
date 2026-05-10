@@ -1,2 +1,9 @@
-// TODO: Convert from Python
-// # -*- encoding: utf-8 -*- from thefuck.utils import memoize, get_alias  target_layout = '''qwertyuiop[]asdfghjkl;'zxcvbnm,./QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?''' # any new keyboard layout must be appended  greek = u''';ςερτυθιοπ[]ασδφγηξκλ΄ζχψωβνμ,./:΅ΕΡΤΥΘΙΟΠ{}ΑΣΔΦΓΗΞΚΛ¨"ΖΧΨΩΒΝΜ<>?''' korean = u'''ㅂ
+use super::{Command, Rule};
+
+pub struct SwitchLang;
+
+impl Rule for SwitchLang {
+    fn name(&self) -> &str { "switch_lang" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("switch") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
+}

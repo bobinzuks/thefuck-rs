@@ -1,20 +1,9 @@
 use super::{Command, Rule};
 
-pub struct BrewUpdateToUpgrade;
+pub struct BrewUpdateFormula;
 
-impl Rule for BrewUpdateToUpgrade {
-    fn match_rule(&self, command: &Command) -> bool {
-        let script_parts: Vec<&str> = command.script.split_whitespace().collect();
-        if script_parts.len() < 2 || script_parts[0] != "brew" {
-            return false;
-        }
-        
-        command.script.contains("update")
-            && command.output.contains("Error: This command updates brew itself")
-            && command.output.contains("Use `brew upgrade")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec![command.script.replace("update", "upgrade")]
-    }
+impl Rule for BrewUpdateFormula {
+    fn name(&self) -> &str { "brew_update_formula" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("brew") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

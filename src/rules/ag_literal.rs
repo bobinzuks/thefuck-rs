@@ -1,17 +1,9 @@
 use super::{Command, Rule};
 
-pub struct AgQuoted;
+pub struct AgLiteral;
 
-impl Rule for AgQuoted {
-    fn name(&self) -> &'static str {
-        "ag_quoted"
-    }
-
-    fn is_match(&self, command: &Command) -> bool {
-        command.output.ends_with("run ag with -Q\n")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec![command.script.replacen("ag", "ag -Q", 1)]
-    }
+impl Rule for AgLiteral {
+    fn name(&self) -> &str { "ag_literal" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("ag") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }

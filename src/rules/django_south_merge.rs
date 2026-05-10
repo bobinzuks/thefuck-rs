@@ -1,15 +1,9 @@
 use super::{Command, Rule};
 
-pub struct RuleMergeMigration;
+pub struct DjangoSouthMerge;
 
-impl Rule for RuleMergeMigration {
-    fn match(&self, command: &Command) -> bool {
-        command.script.contains("manage.py")
-            && command.script.contains("migrate")
-            && command.output.contains("--merge: will just attempt the migration")
-    }
-
-    fn get_new_command(&self, command: &Command) -> Vec<String> {
-        vec![format!("{} --merge", command.script)]
-    }
+impl Rule for DjangoSouthMerge {
+    fn name(&self) -> &str { "django_south_merge" }
+    fn matches(&self, cmd: &Command) -> bool { cmd.text.contains("django") }
+    fn fix(&self, cmd: &Command) -> String { cmd.text.clone() }
 }
